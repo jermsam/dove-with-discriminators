@@ -53,7 +53,7 @@ export const podcastsResolver = resolve<Podcasts, HookContext<PodcastsService>>(
 export const podcastsExternalResolver = resolve<Podcasts, HookContext<PodcastsService>>({})
 
 // Schema for creating new entries
-export const podcastsBaseDataSchema = Type.Pick(podcastsBaseSchema, ['title','dateReleased','redo'], {
+export const podcastsBaseDataSchema = Type.Pick(podcastsBaseSchema, ['type','title','dateReleased','redo'], {
   $id: 'PodcastsData'
 })
 
