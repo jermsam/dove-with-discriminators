@@ -68,14 +68,14 @@ export const musicDataSchema = Type.Intersect([
   podcastsBaseDataSchema,  // Common fields
   Type.Pick(musicSchema, ['genre','artist'])  // Specific field from booksSchema
 ], {
-  $id: 'BooksData'
+  $id: 'MusicData'
 });
 
 export const showDataSchema = Type.Intersect([
   podcastsBaseDataSchema,  // Common fields
   Type.Pick(showSchema, ['season'])  // Specific field from booksSchema
 ], {
-  $id: 'BooksData'
+  $id: 'ShowsData'
 });
 
 export const podcastsDataSchema = Type.Union([
