@@ -13,9 +13,11 @@ export const   podcastsBaseSchema = Type.Object(
   {
     _id: ObjectIdSchema(),
     title: Type.String(),
-    dateReleased: Type.Date(),
+    dateReleased: Type.String({
+      format: 'date'
+    }),
     redo: Type.Boolean(),
-    type: Type.String(),  // Discriminator key
+    _type: Type.String(),  // Discriminator key
   },
   { $id: 'Podcasts', additionalProperties: false }
 )
@@ -23,7 +25,7 @@ export const   podcastsBaseSchema = Type.Object(
 export const booksSchema = Type.Object(
   {
     author: Type.String(),
-    type: Type.Literal('books'),
+    _type: Type.Literal('books'),
   },
   { $id: 'Books', additionalProperties: false }
 )
@@ -32,7 +34,7 @@ export const musicSchema = Type.Object(
   {
     genre: Type.String(),
     artist: Type.String(),
-    type: Type.Literal('music'),
+    _type: Type.Literal('music'),
   },
   { $id: 'Music', additionalProperties: false }
 )
@@ -40,7 +42,7 @@ export const musicSchema = Type.Object(
 export const showSchema =  Type.Object(
   {
     season: Type.Number(),
-    type: Type.Literal('shows'),
+    _type: Type.Literal('shows'),
   },
   { $id: 'Shows', additionalProperties: false }
 )
@@ -53,7 +55,7 @@ export const podcastsResolver = resolve<Podcasts, HookContext<PodcastsService>>(
 export const podcastsExternalResolver = resolve<Podcasts, HookContext<PodcastsService>>({})
 
 // Schema for creating new entries
-export const podcastsBaseDataSchema = Type.Pick(podcastsBaseSchema, ['type','title','dateReleased','redo'], {
+export const podcastsBaseDataSchema = Type.Pick(podcastsBaseSchema, ['_type','title','dateReleased','redo'], {
   $id: 'PodcastsData'
 })
 
@@ -114,21 +116,21 @@ export const podcastsQuerySchema = Type.Union([
   // Books
   querySyntax(Type.Intersect([
     podcastsBaseQueryProperties,
-    Type.Object({ type: Type.Literal('books') }),
+    Type.Object({ _type: Type.Literal('books') }),
     booksQueryProperties
   ])),
 
   // Music
   querySyntax(Type.Intersect([
     podcastsBaseQueryProperties,
-    Type.Object({ type: Type.Literal('music') }),
+    Type.Object({ _type: Type.Literal('music') }),
     musicQueryProperties
   ])),
 
   // Shows
   querySyntax(Type.Intersect([
     podcastsBaseQueryProperties,
-    Type.Object({ type: Type.Literal('shows') }),
+    Type.Object({ _type: Type.Literal('shows') }),
     showsQueryProperties
   ]))
 ], { additionalProperties: false })
