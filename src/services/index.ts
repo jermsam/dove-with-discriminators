@@ -1,8 +1,8 @@
-import { podcasts } from './podcasts/podcasts'
+import { media } from './media/media'
 // For more information about this file see https://dove.feathersjs.com/guides/cli/application.html#configure-functions
 import type { Application } from '../declarations'
 
 export const services = (app: Application) => {
-  app.configure(podcasts)
+  app.configure(media)
   // All services will be registered here
 }

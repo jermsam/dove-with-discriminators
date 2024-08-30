@@ -4,23 +4,23 @@ import { MongoDBService } from '@feathersjs/mongodb'
 import type { MongoDBAdapterParams, MongoDBAdapterOptions } from '@feathersjs/mongodb'
 
 import type { Application } from '../../declarations'
-import type { Podcasts, PodcastsData, PodcastsPatch, PodcastsQuery } from './podcasts.schema'
+import type { Media, MediaData, MediaPatch, MediaQuery } from './media.schema'
 
-export type { Podcasts, PodcastsData, PodcastsPatch, PodcastsQuery }
+export type { Media, MediaData, MediaPatch, MediaQuery }
 
-export interface PodcastsParams extends MongoDBAdapterParams<PodcastsQuery> {}
+export interface MediaParams extends MongoDBAdapterParams<MediaQuery> {}
 
 // By default calls the standard MongoDB adapter service methods but can be customized with your own functionality.
-export class PodcastsService<ServiceParams extends Params = PodcastsParams> extends MongoDBService<
-  Podcasts,
-  PodcastsData,
-  PodcastsParams,
-  PodcastsPatch
+export class MediaService<ServiceParams extends Params = MediaParams> extends MongoDBService<
+  Media,
+  MediaData,
+  MediaParams,
+  MediaPatch
 > {}
 
 export const getOptions = (app: Application): MongoDBAdapterOptions => {
   return {
     paginate: app.get('paginate'),
-    Model: app.get('mongodbClient').then((db) => db.collection('podcasts'))
+    Model: app.get('mongodbClient').then((db) => db.collection('media'))
   }
 }
