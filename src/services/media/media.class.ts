@@ -21,6 +21,12 @@ export class MediaService<ServiceParams extends Params = MediaParams> extends Mo
 export const getOptions = (app: Application): MongoDBAdapterOptions => {
   return {
     paginate: app.get('paginate'),
-    Model: app.get('mongodbClient').then((db) => db.collection('media'))
+    Model: app.get('mongodbClient')
+      .then((db) => db.collection('media'))
+      .then((collection) => {
+        collection.createIndex({_id: 1}, {unique: true});
+
+        return collection;
+      })
   }
 }
